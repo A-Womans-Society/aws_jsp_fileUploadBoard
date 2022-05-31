@@ -2,6 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
   <display-name>melanieFileBoard</display-name>
   <welcome-file-list>
+    <welcome-file>List.jsp</welcome-file>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
     <welcome-file>index.jsp</welcome-file>
@@ -9,4 +10,58 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <!-- 드라이버 설정 -->
+  <context-param>
+  	<param-name>OracleDriver</param-name>
+  	<param-value>oracle.jdbc.OracleDriver</param-value>
+  </context-param>
+   <context-param>
+  	<param-name>OracleURL</param-name>
+  	<param-value>jdbc:oracle:thin:@localhost:1521:xe</param-value>
+  </context-param>
+   <context-param>
+  	<param-name>OracleId</param-name>
+  	<param-value>c##jsp</param-value>
+  </context-param>  
+    <context-param>
+  	<param-name>OraclePwd</param-name>
+  	<param-value>1234</param-value>
+  </context-param>  
+  
+  <!-- 패이징 설정값 -->
+  <context-param>
+  	<param-name>POSTS_PER_PAGE</param-name>
+  	<param-value>10</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>PAGES_PER_BLOCK</param-name>
+  	<param-value>5</param-value>
+  </context-param>
+  
+  <!-- 세션 유지 시간 설정(분 단위 설정)  -->
+  <session-config>
+  	<session-timeout>20</session-timeout>
+  </session-config>
+  
+  <!-- 모든 페이지에 캐릭터인코딩 설정 -->
+  <filter>
+  	<filter-name>SetCharEncoding</filter-name>
+  	<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>utf-8</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>SetCharEncoding</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  
+  <!--업로드할 파일의 제한 용량(1024바이트 * 1000 * 5 = 5MB) -->
+  <context-param>
+  	<param-name>maxPostSize</param-name>
+  	<param-value>5120000</param-value>
+  </context-param>
+  
 </web-app>
