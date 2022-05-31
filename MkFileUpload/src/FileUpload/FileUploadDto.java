@@ -58,7 +58,8 @@ public class FileUploadDto {
 	public void setReadcount(String readcount) {
 		this.readcount = readcount;
 	}
-	public FileUploadDto(String num, String title, String writer, String filename, String content, String postdate,
+	public FileUploadDto(String num, String title, String writer, String filename,
+			String content, String postdate,
 			String pass, String readcount) {
 		super();
 		this.num = num;
@@ -73,6 +74,12 @@ public class FileUploadDto {
 	public FileUploadDto() {
 		super();
 
+	}
+	@Override
+	public String toString() {
+		return "FileUploadDto [num=" + num + ", title=" + title + ", writer=" + writer + ", filename=" + filename
+				+ ", content=" + content + ", postdate=" + postdate + ", pass=" + pass + ", readcount=" + readcount
+				+ "]";
 	}
 	
 	

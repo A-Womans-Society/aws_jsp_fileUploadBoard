@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자료실 목록 확인하기</title>
+<title>Insert title here</title>
 </head>
 <body>
 
