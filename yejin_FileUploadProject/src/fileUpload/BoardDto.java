@@ -1,6 +1,7 @@
 package fileUpload;
 
 public class BoardDto {
+	private int no;
 	private String writer;
 	private String pwd;
 	private String content;
@@ -9,11 +10,20 @@ public class BoardDto {
 	public BoardDto() {
 	}
 
-	public BoardDto(String writer, String pwd, String content, String file) {
+	public BoardDto(int no, String writer, String pwd, String content, String file) {
+		setNo(no);
 		setContent(content);
 		setFile(file);
 		setPwd(pwd);
 		setWriter(writer);
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
 	}
 
 	public String getWriter() {
