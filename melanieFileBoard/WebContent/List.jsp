@@ -23,7 +23,6 @@
 	int totalCount = dao.selectCount(result); // 게시물 수 확인
 	result.put("totalCount", totalCount);
 	
-	/*** 페이징 처리 start ***/
 	// 전체 페이지 수 계산
 	int pageSize = Integer.parseInt(application.getInitParameter("POSTS_PER_PAGE"));
 	int blockPage = Integer.parseInt(application.getInitParameter("PAGES_PER_BLOCK"));
@@ -47,7 +46,6 @@
 
 	result.put("start", start);
 	result.put("end", end);
-	/*** 페이지 처리 end ***/
 	
 	pageContext.setAttribute("result", result);
 
