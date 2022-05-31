@@ -31,7 +31,7 @@
 				<tr>
 					<td colspan="2" class="attr"><input type="submit"
 						value="upload" /> <input type="reset" value="reset" /> <input
-						type="button" value="list" onClick="window.location='index.jsp'"></td>
+						type="button" value="list" onClick="window.location='list.jsp'"></td>
 				</tr>
 			</table>
 		</form>
