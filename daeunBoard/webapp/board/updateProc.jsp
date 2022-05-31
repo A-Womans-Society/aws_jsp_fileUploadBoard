@@ -11,7 +11,7 @@
 </jsp:useBean>
 <html>
 <head>
-<title>write Process</title>
+<title>update Process</title>
 </head>
 <body>
 <%	
@@ -45,9 +45,11 @@
 		//out.println(uploadFile+"<br>");
 		//out.println(writer+"<br>");
 		
-		//insert
+		//update
+		int num = Integer.parseInt(request.getParameter("num"));
 		BoardDao dbPro = BoardDao.getInstance();
-		dbPro.insertArticle(title,uploadFile,writer,content);
+		dbPro.update(title, content, uploadFile, num);
+		
 		
 		if(fileName == null) {
 			System.out.println("파일 업로드 실패");

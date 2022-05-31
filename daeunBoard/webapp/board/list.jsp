@@ -1,9 +1,16 @@
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="daeunBoard.BoardDao"%>
 <%@ page import="daeunBoard.BoardVo"%>
 <%@ page import="java.util.List"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%!
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+%>
 <%
 	int count = 0;
 	List<BoardVo> list = null;
@@ -11,15 +18,22 @@
 	count = dbPro.counter();
 	if (count > 0) {
 		list = dbPro.listAll();
-		for (BoardVo tmp : list){
-			System.out.println(tmp);
-		}
 		request.setAttribute("list", list);
 	}
 	request.setAttribute("count", count);
 %>
 <html>
 <head>
+<style>
+body{ padding-top: 30px;
+    width: 700px; 
+    margin: auto;
+    left:0; top:0; right:0; bottom:0;}
+table{ width:700px;
+    border-collapse:collapse;}
+tr{ text-align:center;    
+    border:1px solid #333;}
+</style>
 <title>listForm page</title>
 </head>
 <body>
@@ -27,7 +41,7 @@
 	<b>글 목록 (전체 글: ${count})</b>
 	<table>
 		<tr>
-			<td><a href="writeForm.jsp">글쓰기</a></td>
+			<td  style="text-align:right;"><a href="writeForm.jsp">글쓰기</a></td>
 		</tr>
 	</table>
 	<%
@@ -45,22 +59,23 @@
 			<th>번 호</th>
 			<th>작성자</th>
 			<th>제 목</th>
-			<th>내 용</th>
-			<th>파 일</th>
+			<th>작성일</th>
+			<th>파일 이름</th>
 
-	<c:forEach var="article" items="${list}">
-		<tr>
-			<td>${article.num}</td>
+	<c:forEach var="article" items="${list}" varStatus="status">
+			<tr onClick="location.href='content.jsp?num=${article.num}'">
+			<td>${status.count}</td>
 			<td>${article.writer }</td>
-			<td><a href="content.jsp?num=${article.num}">${article.title }</a></td>
-			<td>${article.content }</td>
-			<td>${article.file }</td>
+			<td><a href="content.jsp?num=${article.num}">${article.title}</a></td>
+			<td><fmt:formatDate value="${article.regDate}" pattern="yyyy-MM-dd HH:ss"/></td>
+			<td>${article.file}</td>
 		</tr>
 	</c:forEach>
 	</table>
 	
 	<%
 		}
+	
 	%>
 </body>
 </html>

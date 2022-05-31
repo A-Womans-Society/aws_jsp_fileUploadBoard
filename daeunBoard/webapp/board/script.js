@@ -16,6 +16,27 @@ function writeSave(){
     }
     if(document.writeForm.uploadFile.value == ""){
         alert("파일을 선택하세요.");
-        return;
+        document.writeForm.uploadFile.focus();
+        return false;
     }
 }
+
+function updateSave(){
+	if(document.updateForm.title.value == "") {
+		alert("제목을 입력하세요.");
+		document.updateForm.title.focus();
+		return false;
+	}
+	if(document.updateForm.content.value == "") {
+		alert("내용을 입력하세요.");
+		document.updateForm.content.focus();
+		return false;
+	}
+	if(document.updateForm.uploadFile.value == "") {
+		alert("파일을 선택하세요.");
+		document.updateForm.uploadFile.focus();
+		return false;
+	}
+	
+}
+

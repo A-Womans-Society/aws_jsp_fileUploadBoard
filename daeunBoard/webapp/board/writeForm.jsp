@@ -21,7 +21,7 @@
 		<td><input type="text" name="title"></td>
 	</tr>
 	<tr>
-		<td>내용</td>
+		<td>내용<br>(100자 이내)</td>
 		<td>
 			<textarea rows="15" cols="40" name="content"></textarea>
 		</td>
@@ -39,7 +39,6 @@
 		</td>
 	</tr>
 </table>
-
 </form>
 </body>
 </html>
