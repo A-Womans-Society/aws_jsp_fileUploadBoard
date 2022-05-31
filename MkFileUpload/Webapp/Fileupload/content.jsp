@@ -5,8 +5,12 @@
 <%@ page import="FileUpload.FileUploadDto"%>
 <%@ page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.io.*" %>
+<%	String savePath = getServletContext().getRealPath("/upload");
+	File dir = new File(savePath);
+	String[] fileList = dir.list();
+%>
 <%
-	//<c:if test ="${param.">
 int num = Integer.parseInt(request.getParameter("num"));
 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 FileUploadDao upPro = FileUploadDao.getInstance();
@@ -23,7 +27,15 @@ System.out.println(upDto);
 <meta charset="UTF-8">
 <title>FileUpload content</title>
 <style>
-
+body {
+	text-align: center;
+}
+table{
+	border: 1px solid #333;
+	text-align: center;
+	width: 500px;
+	margin: auto;
+}
 </style>
 </head>
 <body>
@@ -41,7 +53,7 @@ System.out.println(upDto);
 				<td>${content.getWriter() }</td>
 			</tr>
 			<tr>
-				<th>파일 업로드 내용</th>
+				<th style = "width : 150px;">파일 업로드 내용</th>
 				<td>${content.getContent()}</td>
 			</tr>
 			<tr>
@@ -49,10 +61,13 @@ System.out.println(upDto);
 				<th>조회수</th>
 			</tr>
 			<tr>
-				<td>${content.getFilename()}</td>
-				<td>${content.getReadcount() }</td>
+				<td>
+				<a href="${pageContext.request.contextPath}/upload/${content.getFilename()}">${content.getFilename()}</a>
+				<a href="${pageContext.request.contextPath}/upload/${content.getFilename()}" download>파일다운</a>
+				</td>
+				<td>${content.getReadcount()}</td>
+				
 			</tr>
-			<%--${article.content} --%>
 			<tr colspan="3">
 				<td colspan="4">
 					<div style="display: flex;justify-content: space-around;">

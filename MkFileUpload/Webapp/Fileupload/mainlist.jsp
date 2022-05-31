@@ -14,10 +14,10 @@ body {
 }
 table{
 	border: 1px solid #333;
-	width: 500px;
+	text-align: center;
+	width: 700px;
 	margin: auto;
 }
-
 </style>
 </head>
 <body>
@@ -33,11 +33,11 @@ table{
 		<table border="1">
 			<tr>
 				<th>NO.</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>파일이름</th>
-				<th>내용</th>
-				<th>작성일</th>
+				<th style = "width : 70px;">제목</th>
+				<th style = "width : 70px;">작성자</th>
+				<th style = "width : 130px;">파일이름</th>
+				<th style = "width : 150px;">내용</th>
+				<th style = "width : 170px;">작성일</th>
 				<th>조회수</th>
 			</tr>
 			<c:forEach var="file" items="${fileList}" varStatus="status">
@@ -50,20 +50,6 @@ table{
 					<td>${file.getPostdate()}</td>
 					<td>${file.getReadcount()}</td>
 				</tr>
-				<%-- 				<tr>
-					<td width="5%">${file.getNum()}</td>
-					<a href="content.jsp?num=${file.getNum()}">
-						<td width="20%" ${file.getTitle()}></td>
-					</a>
-					<td width="5%" ${file.getWriter()}></td>
-					<td width="30%" ${file.getFilename()}></td>
-					<td width="20%">${file.getContent()}</td>
-					<td width="10%">${file.getPostdate()}</td>
-					<td width="10%">${file.getReadcount()}</td>
-				</tr> --%>
-
-				<%-- <c:if test = "${param. }" isEmpty () 쓰고 싶으면?
-			제목 클릭하면 내용보이게 설정하기 넓이 조절 다시 설정하기--%>
 			</c:forEach>
 			<tr colspan="7">
 				<td colspan="8">
@@ -74,7 +60,6 @@ table{
 				</td>
 			</tr>
 		</table>
-
 	</article>
 </body>
 </html>

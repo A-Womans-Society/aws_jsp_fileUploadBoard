@@ -119,7 +119,7 @@ public class FileUploadDao {
 			pstmt = conn.prepareStatement("select * from MKFILEUPLOAD where NUM = ?");
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
-//컬럼명과 동일하게
+			//컬럼명과 동일하게
 			if (rs.next()) { // 순회하는 내용이 내가 보여주고자하는 항목만
 				dto = new FileUploadDto();
 				dto.setNum(rs.getString("NUM"));
@@ -150,11 +150,4 @@ public class FileUploadDao {
 		}
 		return dto;
 	}
-
-	// 글 목록 수 count
-
-	// 글 수정
-
-	// 글 삭제
-
 }
