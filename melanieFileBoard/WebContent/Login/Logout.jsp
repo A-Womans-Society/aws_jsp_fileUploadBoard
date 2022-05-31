@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	// 방법1. 회원 인증정보 속성 삭제
 	// 인수로 지정한 속성을 삭제하는 메서드

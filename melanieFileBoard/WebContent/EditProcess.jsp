@@ -1,7 +1,7 @@
-<%@page import="java.io.File"%>
-<%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="com.oreilly.servlet.MultipartRequest"%>
+<%@ page import="java.io.File"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page import="board.BoardDAO" %>
 <%@ page import="board.BoardDTO" %>
 <%@ page import="utils.JSFunction" %>

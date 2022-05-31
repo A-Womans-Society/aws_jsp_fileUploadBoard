@@ -1,4 +1,4 @@
-<%@page import="java.io.File"%>
+<%@ page import="java.io.File"%>
 <%@ page import="board.BoardDTO"%>
 <%@ page import="board.BoardDAO"%>
 <%@ page import="utils.JSFunction"%>

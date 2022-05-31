@@ -1,4 +1,3 @@
-<%@page import="java.util.Iterator"%>
 <%@ page import="board.BoardDTO"%>
 <%@ page import="board.BoardDAO"%>
 <%@ page import="utils.BoardPage"%>
@@ -13,15 +12,16 @@
 	BoardDAO dao = new BoardDAO();
 	
 	// 사용자가 입력한 검색 조건을 Map에 저장
-	Map<String, Object> param = new HashMap<String, Object>();
+	Map<String, Object> result = new HashMap<String, Object>();
 	String searchField = request.getParameter("searchField");
 	String searchWord = request.getParameter("searchWord");
 	if (searchWord != null) {
-		param.put("searchField", searchField);
-		param.put("searchWord", searchWord);
+		result.put("searchField", searchField);
+		result.put("searchWord", searchWord);
 	}
 	
-	int totalCount = dao.selectCount(param); // 게시물 수 확인
+	int totalCount = dao.selectCount(result); // 게시물 수 확인
+	result.put("totalCount", totalCount);
 	System.out.println("totalCount : " + totalCount);
 	
 	/*** 페이징 처리 start ***/
@@ -29,9 +29,9 @@
 	int pageSize = Integer.parseInt(application.getInitParameter("POSTS_PER_PAGE"));
 	int blockPage = Integer.parseInt(application.getInitParameter("PAGES_PER_BLOCK"));
 	int totalPage = (int)Math.ceil((double)totalCount / pageSize); // 전체 페이지 수
-	param.put("pageSize", pageSize);
-	param.put("blockPage", blockPage);
-	param.put("totalPage", totalPage);
+	result.put("pageSize", pageSize);
+	result.put("blockPage", blockPage);
+	result.put("totalPage", totalPage);
 
 	System.out.println("totalPage : " + totalPage);
 
@@ -43,7 +43,7 @@
 		System.out.println("pageTemp : " + pageTemp);
 		pageNum = Integer.parseInt(pageTemp); // 요청받은 페이지로 수정
 	}
-	param.put("pageNum", pageNum);
+	result.put("pageNum", pageNum);
 
 	
 	// 목록에 출력할 게시물 범위 계산
@@ -52,13 +52,13 @@
 	int end = pageNum * pageSize; // 마지막 게시물 번호
 	System.out.println("end : " + end);
 
-	param.put("start", start);
-	param.put("end", end);
+	result.put("start", start);
+	result.put("end", end);
 	/*** 페이지 처리 end ***/
 	
-	pageContext.setAttribute("param", param);
+	pageContext.setAttribute("result", result);
 
-	List<BoardDTO> boardLists = dao.selectListPage(param); // 게시물 목록 받기
+	List<BoardDTO> boardLists = dao.selectListPage(result); // 게시물 목록 받기
 	pageContext.setAttribute("boardLists", boardLists);
 	
 
@@ -124,10 +124,10 @@
 				</tr>
 			</c:when>
 			<c:otherwise> <!-- 게시물이 있을 때 -->
-				<c:forEach items="${ boardLists }" var="row" varStatus="loop">
+				<c:forEach items="${ boardLists }" var="row" varStatus="status">
 				<tr align="center">
 					<td> <!-- No. -->
-						${ (param.pageNum-1) * param.blockPage + loop.count }
+						${ result.totalCount - (((result.pageNum-1) * result.pageSize) + status.index) }
 					</td>
 					<td align="left"> <!-- 제목(링크) -->
 						<a href="${pageContext.request.contextPath}/View.jsp?boardNum=${ row.boardNum }">${ row.title }</a>
