@@ -28,8 +28,8 @@ public class BoardDao {
 		try {
 			conn = ConnUtil.getConnection();
 			pstmt = conn.prepareStatement(
-					"insert into \"BOARD\" (\"NUM\",\"WRITER\",\"TITLE\",\"REGDATE\",\"FILE\", \"CONTENT\") "
-							+ "values(\"BOARD_SEQ\".nextval,?,?,sysdate,?,?)");
+					"insert into \"BOARD\" (\"NUM\",\"WRITER\",\"TITLE\",\"REGDATE\",\"FILE\", \"CONTENT\", \"READCNT\") "
+							+ "values(\"BOARD_SEQ\".nextval,?,?,sysdate,?,?,0)");
 			pstmt.setString(1, writer);
 			pstmt.setString(2, title);
 			pstmt.setString(3, uploadFile);
@@ -60,6 +60,10 @@ public class BoardDao {
 		BoardVo article = new BoardVo();
 		try {
 			conn = ConnUtil.getConnection();
+			pstmt = conn.prepareStatement("update BOARD set READCNT=READCNT+1 where NUM=?");
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+			pstmt.close();
 			pstmt = conn.prepareStatement(
 					"select \"NUM\",\"WRITER\",\"TITLE\",\"CONTENT\",\"FILE\" from BOARD where NUM=?");
 			pstmt.setInt(1, num);
@@ -105,7 +109,7 @@ public class BoardDao {
 		try {
 			conn = ConnUtil.getConnection();
 			pstmt = conn.prepareStatement(
-					"select \"NUM\",\"WRITER\",\"TITLE\",\"REGDATE\",\"FILE\" from \"BOARD\" order by \"NUM\" desc");
+					"select \"NUM\",\"WRITER\",\"TITLE\",\"REGDATE\",\"FILE\",\"READCNT\" from \"BOARD\" order by \"NUM\" desc");
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardVo article = new BoardVo();
@@ -114,6 +118,7 @@ public class BoardDao {
 				article.setTitle(rs.getString("title"));
 				article.setRegDate(rs.getTimestamp("regDate"));
 				article.setFile(rs.getString("file"));
+				article.setReadCnt(rs.getInt("readCnt"));
 				list.add(article);
 			}
 		} catch (SQLException e) {
@@ -235,5 +240,4 @@ public class BoardDao {
 			}
 		}
 	}
-
 }

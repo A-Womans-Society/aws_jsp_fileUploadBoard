@@ -6,10 +6,10 @@
 <%@ page import="daeunBoard.BoardVo" %>
 <%
 
-	String savePath = getServletContext().getRealPath("/upload");
-	File file = new File(savePath);
-	String[] fileList = file.list();
-	pageContext.setAttribute("fileList", fileList);
+	//String savePath = getServletContext().getRealPath("/upload");
+	//File file = new File(savePath);
+	//String[] fileList = file.list();
+	//pageContext.setAttribute("fileList", fileList);
 
 %>
 <!DOCTYPE html>
@@ -31,6 +31,7 @@ table{border:1px solid #333; text-align:center;
 	BoardDao dbPro = BoardDao.getInstance();
 	BoardVo article = dbPro.listOne(num);
 	request.setAttribute("article", article);
+	
 %>
 <body>
 <h2 style="text-align:center">글 내용 보기</h2>
@@ -54,7 +55,8 @@ table{border:1px solid #333; text-align:center;
 		</tr>
 		<tr>
 			<th>파 일</th>
-			<td> <a href="${pageContext.request.contextPath}/upload/${article.file}" download>${article.file}</a></td>
+			<td> <a href="${pageContext.request.contextPath}/upload/${article.file}">${article.file}</a>
+				<a href="${pageContext.request.contextPath}/upload/${article.file}" download>다운로드</a></td>
 		</tr>
 		</table>
 		<br>

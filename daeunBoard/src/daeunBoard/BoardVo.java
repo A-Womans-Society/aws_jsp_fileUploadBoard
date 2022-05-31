@@ -9,12 +9,13 @@ public class BoardVo {
 	String file;
 	String writer;
 	Timestamp regDate;
+	int readCnt;
 	
 	public BoardVo() {}
 	
 	
 
-	public BoardVo(int num, String title, String content, String file, String writer, Timestamp regDate) {
+	public BoardVo(int num, String title, String content, String file, String writer, Timestamp regDate, int readCnt) {
 		super();
 		this.num = num;
 		this.title = title;
@@ -22,6 +23,19 @@ public class BoardVo {
 		this.file = file;
 		this.writer = writer;
 		this.regDate = regDate;
+		this.readCnt = readCnt;
+	}
+
+
+
+	public int getReadCnt() {
+		return readCnt;
+	}
+
+
+
+	public void setReadCnt(int readCnt) {
+		this.readCnt = readCnt;
 	}
 
 
@@ -101,9 +115,8 @@ public class BoardVo {
 	@Override
 	public String toString() {
 		return "BoardVo [num=" + num + ", title=" + title + ", content=" + content + ", file=" + file + ", writer="
-				+ writer + ", regDate=" + regDate + "]";
+				+ writer + ", regDate=" + regDate + ", readCnt=" + readCnt + "]";
 	}
-
 
 	
 }

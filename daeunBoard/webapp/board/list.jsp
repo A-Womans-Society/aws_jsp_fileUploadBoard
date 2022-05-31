@@ -3,14 +3,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <%@ page import="daeunBoard.BoardDao"%>
 <%@ page import="daeunBoard.BoardVo"%>
 <%@ page import="java.util.List"%>
-<%@ page import="java.text.SimpleDateFormat"%>
-<%!
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-%>
 <%
 	int count = 0;
 	List<BoardVo> list = null;
@@ -34,7 +32,7 @@ table{ width:700px;
 tr{ text-align:center;    
     border:1px solid #333;}
 </style>
-<title>listForm page</title>
+<title>list page</title>
 </head>
 <body>
 	<h2 style="text-align: center">자 료 실</h2>
@@ -61,14 +59,18 @@ tr{ text-align:center;
 			<th>제 목</th>
 			<th>작성일</th>
 			<th>파일 이름</th>
+			<th>조회수</th>
+			
 
 	<c:forEach var="article" items="${list}" varStatus="status">
-			<tr onClick="location.href='content.jsp?num=${article.num}'">
-			<td>${status.count}</td>
-			<td>${article.writer }</td>
+			<tr style="cursor:pointer" onClick="location.href='content.jsp?num=${article.num}'">
+			<td>${fn:length(list) - status.index}</td>
+ 			<td>${article.writer}</td>
 			<td><a href="content.jsp?num=${article.num}">${article.title}</a></td>
-			<td><fmt:formatDate value="${article.regDate}" pattern="yyyy-MM-dd HH:ss"/></td>
+			<td><fmt:formatDate value="${article.regDate}" pattern="yyyy-MM-dd HH:mm"/></td>
 			<td>${article.file}</td>
+			<td>${article.readCnt}</td>
+			
 		</tr>
 	</c:forEach>
 	</table>
