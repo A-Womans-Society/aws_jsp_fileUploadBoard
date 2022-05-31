@@ -22,7 +22,6 @@
 	
 	int totalCount = dao.selectCount(result); // 게시물 수 확인
 	result.put("totalCount", totalCount);
-	System.out.println("totalCount : " + totalCount);
 	
 	/*** 페이징 처리 start ***/
 	// 전체 페이지 수 계산
@@ -32,15 +31,11 @@
 	result.put("pageSize", pageSize);
 	result.put("blockPage", blockPage);
 	result.put("totalPage", totalPage);
-
-	System.out.println("totalPage : " + totalPage);
-
 	
 	// 전체 페이지 확인
 	int pageNum = 1; // 기본값
 	String pageTemp = request.getParameter("pageNum");
 	if (pageTemp != null && !pageTemp.equals("")) {
-		System.out.println("pageTemp : " + pageTemp);
 		pageNum = Integer.parseInt(pageTemp); // 요청받은 페이지로 수정
 	}
 	result.put("pageNum", pageNum);
@@ -48,9 +43,7 @@
 	
 	// 목록에 출력할 게시물 범위 계산
 	int start = (pageNum - 1) * pageSize + 1; // 첫 게시물 번호
-	System.out.println("start : " + start);
 	int end = pageNum * pageSize; // 마지막 게시물 번호
-	System.out.println("end : " + end);
 
 	result.put("start", start);
 	result.put("end", end);
@@ -60,7 +53,6 @@
 
 	List<BoardDTO> boardLists = dao.selectListPage(result); // 게시물 목록 받기
 	pageContext.setAttribute("boardLists", boardLists);
-	
 
 	dao.close(); // DB 연결 닫기
 %>
