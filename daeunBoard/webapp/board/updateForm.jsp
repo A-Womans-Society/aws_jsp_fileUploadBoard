@@ -26,12 +26,12 @@
 	</tr>
 	<tr>
 		<td>제목</td>
-		<td><input type="text" name="title"></td>
+		<td><input type="text" name="title" placeholder="${article.title}"></td>
 	</tr>
 	<tr>
 		<td>내용 <br>(100자 이내)</td>
 		<td>
-			<textarea rows="15" cols="40" name="content"></textarea>
+			<textarea rows="15" cols="40" name="content" placeholder="${article.content}"></textarea>
 		</td>
 	</tr>
 	<tr>
