@@ -9,7 +9,6 @@
 %>
 <%
 	int count = 0;
-	//int number = 0;
 	List<BoardDto> articleList = null;
 	BoardDao dao = new BoardDao();
 	count = dao.getArticleCount();
@@ -17,7 +16,7 @@
 	if(count > 0){
 		articleList = dao.getArticles();
 	}
-	//number = count;
+
 %>
 <!DOCTYPE html>
 <html>
@@ -29,7 +28,8 @@
 <section>
 <article>
 <b>글목록(전체 글:<%= count %>)</b>
-<table class= "listwritebotton" >
+<hr color=grey>
+<table class= "listwritebotton">
 	<tr>
 	<td><a href = "writeForm.jsp">글쓰기</a></td>
 	<tr>
@@ -37,12 +37,12 @@
 <%
 	if(count == 0){
 %>
-<table>
+<table border="1">
 	<tr>
 	<td>게시판에 저장된 글이 없습니다.</td>
 </table>
 <% } else { %>
-<table>
+<table border="1">
 	<tr>
 		<th id="num">번  호</th>
 		<th id="subject">제  목</th>
@@ -57,17 +57,20 @@
 %>
 	<tr> 
 	<td><%= dto.getNum() %></td>
-	<td>
-		<%= dto.getSubject() %>
+	<td class = "titled">
+	<a href = "content.jsp?num=<%= dto.getNum() %>">
+		<%= dto.getSubject() %></a>
 		<% if(dto.getReadcount() >= 20){ %>
 		<img src="images/hot.gif"><%} %></td>
-	<td>	
+	<td>
 		<%= dto.getWriter() %></td>
 	<td>
 		<%= sdf.format(dto.getRegdate()) %></td>
 	<td><%= dto.getReadcount() %></td>
 	<td><% if(dto.getFilename() != null){ %>
-		<img src="images/file.png" width="256" height="256"><% } %></td>
+		<img src="images/file.png" width="16" height="16" >
+		<%= dto.getFilename() %>
+		<% } %></td>
 	</tr>
 		<% } %>
 </table>

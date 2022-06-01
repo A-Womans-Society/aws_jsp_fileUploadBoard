@@ -19,4 +19,9 @@ function writeSave() {
 		document.writeForm.pass.focus();
 		return false;
 	}
+	if(documet.wirteForm.email.value == ""){
+		alert("이메일을 입력하세요.");
+		document.writeForm.email.focus();
+		return false;
+	}
 }

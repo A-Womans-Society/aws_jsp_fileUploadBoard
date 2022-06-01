@@ -3,14 +3,12 @@
 <%@ page import = "boardone.*" %>
 <%@ page import = "java.io.File" %>
 <%@ page import = "java.sql.*" %>
-<!-- page import = "java.text.SimpleDateFormat" -->
 <%@ page import = "com.oreilly.servlet.MultipartRequest" %>
 <%@ page import = "com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 
 <% request.setCharacterEncoding("UTF-8");%>
 <% BoardDao dao = BoardDao.getInstance();
 	BoardDto dto = new BoardDto(); 
-//	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 %>
 
 <%
@@ -38,7 +36,6 @@
 	int ref = 1;
 	int step = 0;
 	int depth = 0;
-	// String regdate = multi.getParameter("regdate");
 	String content = multi.getParameter("content");	
 	String filename = multi.getFilesystemName("uploadfile");
 	
@@ -57,21 +54,6 @@
 	
 	dao.insertArticle(dto);
 	response.sendRedirect("list.jsp");
-	
-	// ardDto bdto = new BoardDto();
-		//bdto.setRegdate( new Timestamp(System.currentTimeMillis()));
-		//mr.
-		//BoardDto bdto = dbPro.getArticles(String num);
-		//Sbdto.getWriter()
-
-		
-//	 	try{
-//	 		MultipartRequest multi 
-//	 		= new MultipartRequest(request, uploadFilePath, uploadFileSizeLimit, encType);
-			
-//	 	} catch(Exception e){
-//	 		e.printStackTrace();
-//	 	}
 	
 %>
 

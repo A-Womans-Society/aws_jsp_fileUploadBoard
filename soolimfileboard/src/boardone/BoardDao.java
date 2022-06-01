@@ -193,5 +193,199 @@ public class BoardDao {
 		}
 		return articleList;
 	}
+	public BoardDto getArticle(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BoardDto dto = new BoardDto();
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement("update \"BOARD\" set \"READCOUNT\"=\"READCOUNT\"+1 where \"NUM\"=?");
+			pstmt.setInt(1, num);	
+			pstmt.executeQuery();
+			pstmt.close();
+			
+			pstmt = conn.prepareStatement("select * from \"BOARD\" where \"NUM\"=?");
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setNum(rs.getInt("num"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setEmail(rs.getString("email"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setPass(rs.getString("pass"));
+				dto.setReadcount(rs.getInt("readcount"));
+				dto.setRef(rs.getInt("ref"));
+				dto.setStep(rs.getInt("step"));
+				dto.setDepth(rs.getInt("depth"));
+				dto.setRegdate(rs.getTimestamp("regdate"));
+				dto.setContent(rs.getString("content"));
+				dto.setFilename(rs.getString("filename"));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+			}
+		}
+		return dto;
+	}
+	public BoardDto updateGetArticle(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BoardDto dto = new BoardDto();
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement("select * from \"BOARD\" where \"NUM\"=?");
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setNum(rs.getInt("num"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setEmail(rs.getString("email"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setPass(rs.getString("pass"));
+				dto.setReadcount(rs.getInt("readcount"));
+				dto.setRef(rs.getInt("ref"));
+				dto.setStep(rs.getInt("step"));
+				dto.setDepth(rs.getInt("depth"));
+				dto.setRegdate(rs.getTimestamp("regdate"));
+				dto.setContent(rs.getString("content"));
+				dto.setFilename(rs.getString("filename"));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+			}
+		}
+		return dto;
+	}
+	public int updateArticle(BoardDto dto) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String dbpassword = "";
+		int result = -1; //결과값
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement("select \"PASS\" from \"BOARD\" where \"NUM\"=?");
+			pstmt.setInt(1, dto.getNum());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dbpassword = rs.getString("pass"); //비밀번호 비교
+				if(dbpassword.equals(dto.getPass())) {
+					String sql = "update \"BOARD\" set \"WRITER\"=?, \"EMAIL\"=?, \"SUBJECT\"=?, \"CONTENT\"=? where \"NUM\"=?";
+					pstmt.close();
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, dto.getWriter());
+					pstmt.setString(2, dto.getEmail());
+					pstmt.setString(3, dto.getSubject());
+					pstmt.setString(4, dto.getContent());	
+					pstmt.setInt(5, dto.getNum());
+					pstmt.executeQuery();
+					result = 1; //수정 성공
+				} else {
+					result = 0; //수정 실패
+				}
+			}
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+			}
+		}
+		return result;
+	}
+	public int deleteArticle(int num, String pass) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String dbpassword = "";
+		int result = -1; //결과값
+		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement("select \"PASS\" from \"BOARD\" where \"NUM\"=?");
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dbpassword = rs.getString("pass"); //비밀번호 비교
+				if(dbpassword.equals(pass)) {
+					pstmt.close();
+					pstmt = conn.prepareStatement("delete from \"BOARD\" where \"NUM\"=?");
+					pstmt.setInt(1, num);
+					pstmt.executeQuery();
+					result = 1; //수정 성공
+				} else {
+					result = 0; //수정 실패
+				}
+			}
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null)
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			if (pstmt != null)
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			if (conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+			}
+		}
+		return result;
+	}
 
 }
